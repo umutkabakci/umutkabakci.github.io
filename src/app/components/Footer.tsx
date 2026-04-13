@@ -52,7 +52,7 @@ export function Footer() {
           className="flex justify-center mb-16"
         >
           <a
-            href="mailto:hello@umutkabakci.com"
+            href="mailto:umutkabakci029@gmail.com"
             className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg overflow-hidden transition-all hover:shadow-lg hover:shadow-red-600/50"
           >
             <Mail className="w-5 h-5 relative z-10" />
