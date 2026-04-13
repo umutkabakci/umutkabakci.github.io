@@ -21,16 +21,17 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            await github.request('PUT /repos/{owner}/{repo}/pages', {
-              owner,
-              repo,
-              source: {
-                branch: 'main',
-                path: '/',
-              },
-            });
-            const page = await github.request('GET /repos/{owner}/{repo}/pages', {
-              owner,
-              repo,
-            });
-            core.info(`Pages configured: ${page.data.html_url}`);
+            try {
+              const response = await github.rest.repos.createPagesSite({
+                owner,
+                repo,
+                source: {
+                  branch: 'main',
+                  path: '/',
+                },
+              });
+              console.log(`Pages created: ${response.data.html_url}`);
+            } catch (error) {
+              console.error(error);
+              throw error;
+            }
