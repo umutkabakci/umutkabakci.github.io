@@ -70,7 +70,7 @@ export function Footer() {
           className="flex justify-center gap-6 mb-16"
         >
           <a
-            href="https://linkedin.com/in/umutkabakci"
+            href="https://www.linkedin.com/in/umut-kabakci-543ba8174/tr/"
             target="_blank"
             rel="noopener noreferrer"
             className="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center hover:border-red-600 hover:text-red-500 transition-all group"
@@ -78,7 +78,7 @@ export function Footer() {
             <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" />
           </a>
           <a
-            href="https://instagram.com/umutkabakci"
+            href="https://www.instagram.com/umutleo/"
             target="_blank"
             rel="noopener noreferrer"
             className="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center hover:border-red-600 hover:text-red-500 transition-all group"
@@ -86,7 +86,7 @@ export function Footer() {
             <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
           </a>
           <a
-            href="https://youtube.com/@umutkabakci"
+            href="https://www.youtube.com/@synestela9278"
             target="_blank"
             rel="noopener noreferrer"
             className="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center hover:border-red-600 hover:text-red-500 transition-all group"

@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-black overflow-hidden">
       {/* Cinematic Vignette */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/60 pointer-events-none" />
 
       {/* Film Grain Effect */}
       <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"

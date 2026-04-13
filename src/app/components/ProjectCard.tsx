@@ -1,19 +1,30 @@
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Play, Film } from 'lucide-react';
+import { Film, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ProjectCardProps {
   title: string;
   category: string;
   description: string;
   image: string;
+  imageUrls?: string[];
   videoUrl?: string;
+  videoUrls?: string[];
   tags: string[];
 }
 
-export function ProjectCard({ title, category, description, image, videoUrl, tags }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+export function ProjectCard({ title, category, description, image, imageUrls, videoUrl, videoUrls, tags }: ProjectCardProps) {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const hasVideoCarousel = Array.isArray(videoUrls) && videoUrls.length > 0;
+  const hasImageCarousel = Array.isArray(imageUrls) && imageUrls.length > 0;
+  const activeVideoUrl = hasVideoCarousel ? videoUrls[currentVideoIndex] : videoUrl;
+  const activeImageUrl = hasImageCarousel ? imageUrls[currentImageIndex] : image;
+
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [title]);
 
   return (
     <motion.div
@@ -21,8 +32,6 @@ export function ProjectCard({ title, category, description, image, videoUrl, tag
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
       className="group relative overflow-hidden rounded-lg bg-zinc-900 border border-zinc-800 hover:border-red-600/50 transition-all duration-500"
     >
       {/* Film Frame Borders */}
@@ -32,8 +41,32 @@ export function ProjectCard({ title, category, description, image, videoUrl, tag
       </div>
 
       {/* Image Container with Cinematic Aspect Ratio */}
-      <div className="relative aspect-[21/9] overflow-hidden bg-black">
-        {videoUrl ? (
+      <div className={`relative overflow-hidden bg-black ${hasImageCarousel && !activeVideoUrl ? 'aspect-[4/3] md:aspect-[3/2]' : 'aspect-[21/9]'}`}>
+        {hasVideoCarousel ? (
+          <>
+            <iframe
+              src={activeVideoUrl}
+              title={title}
+              frameBorder="0"
+              className="w-full h-full object-cover"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+              allowFullScreen
+            />
+
+            <button
+              type="button"
+              onClick={() => setCurrentVideoIndex((prev) => (prev + 1) % videoUrls.length)}
+              className="absolute right-4 top-1/2 z-40 -translate-y-1/2 rounded-full bg-black/70 border border-white/15 p-3 text-white hover:bg-red-600/80 transition pointer-events-auto"
+              aria-label="Next video"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            <div className="absolute bottom-4 left-4 z-40 px-3 py-1 rounded-full bg-black/70 text-xs text-gray-200 border border-white/10">
+              {currentVideoIndex + 1} / {videoUrls.length}
+            </div>
+          </>
+        ) : videoUrl ? (
           <iframe
             src={videoUrl}
             title={title}
@@ -42,27 +75,32 @@ export function ProjectCard({ title, category, description, image, videoUrl, tag
             allowFullScreen
           />
         ) : (
-          <ImageWithFallback
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-          />
+          <>
+            <ImageWithFallback
+              src={activeImageUrl}
+              alt={title}
+              className={`w-full h-full transition-all duration-700 group-hover:scale-105 ${hasImageCarousel ? 'object-contain bg-black' : 'object-cover'}`}
+            />
+
+            {hasImageCarousel && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setCurrentImageIndex((prev) => (prev + 1) % imageUrls.length)}
+                  className="absolute right-4 top-1/2 z-40 -translate-y-1/2 rounded-full bg-black/70 border border-white/15 p-3 text-white hover:bg-red-600/80 transition pointer-events-auto"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+
+                <div className="absolute bottom-4 left-4 z-40 px-3 py-1 rounded-full bg-black/70 text-xs text-gray-200 border border-white/10">
+                  {currentImageIndex + 1} / {imageUrls.length}
+                </div>
+              </>
+            )}
+          </>
         )}
 
-        {/* Overlay with Play Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center"
-        >
-          <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: isHovered ? 1 : 0.8 }}
-            className="w-20 h-20 rounded-full bg-gradient-to-r from-orange-600 to-red-600 flex items-center justify-center shadow-2xl shadow-red-600/50"
-          >
-            <Play className="w-10 h-10 text-white ml-1" fill="white" />
-          </motion.div>
-        </motion.div>
 
         {/* Category Badge */}
         <div className="absolute top-4 left-4 z-30">
@@ -70,11 +108,6 @@ export function ProjectCard({ title, category, description, image, videoUrl, tag
             <Film className="w-3.5 h-3.5 text-red-500" />
             <span className="text-xs text-red-400 uppercase tracking-wider">{category}</span>
           </div>
-        </div>
-
-        {/* Timecode Effect */}
-        <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/80 backdrop-blur-sm rounded font-mono text-xs text-green-400 border border-green-600/30 z-30">
-          00:00:00:00
         </div>
       </div>
 
