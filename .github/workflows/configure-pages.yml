@@ -44,7 +44,6 @@ jobs:
                 });
                 console.log(`Pages created: ${response.data.html_url}`);
               } else {
-                console.error(error);
-                throw error;
+                console.warn(`Pages configuration skipped: ${error.message}`);
               }
             }
