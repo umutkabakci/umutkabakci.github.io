@@ -22,16 +22,21 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             try {
-              const response = await github.rest.repos.createPagesSite({
-                owner,
-                repo,
-                source: {
-                  branch: 'main',
-                  path: '/',
-                },
-              });
-              console.log(`Pages created: ${response.data.html_url}`);
+              await github.rest.repos.getPages({ owner, repo });
+              console.log('Pages site already exists for this repository.');
             } catch (error) {
-              console.error(error);
-              throw error;
+              if (error.status === 404) {
+                const response = await github.rest.repos.createPagesSite({
+                  owner,
+                  repo,
+                  source: {
+                    branch: 'main',
+                    path: '/',
+                  },
+                });
+                console.log(`Pages created: ${response.data.html_url}`);
+              } else {
+                console.error(error);
+                throw error;
+              }
             }
