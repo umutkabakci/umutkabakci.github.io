@@ -23,14 +23,22 @@ jobs:
             const repo = context.repo.repo;
             try {
               await github.rest.repos.getPages({ owner, repo });
-              console.log('Pages site already exists for this repository.');
+              const response = await github.rest.repos.updatePagesSite({
+                owner,
+                repo,
+                source: {
+                  branch: 'gh-pages',
+                  path: '/',
+                },
+              });
+              console.log(`Pages updated to gh-pages: ${response.data.html_url}`);
             } catch (error) {
               if (error.status === 404) {
                 const response = await github.rest.repos.createPagesSite({
                   owner,
                   repo,
                   source: {
-                    branch: 'main',
+                    branch: 'gh-pages',
                     path: '/',
                   },
                 });

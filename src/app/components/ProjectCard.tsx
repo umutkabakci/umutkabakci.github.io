@@ -8,10 +8,11 @@ interface ProjectCardProps {
   category: string;
   description: string;
   image: string;
+  videoUrl?: string;
   tags: string[];
 }
 
-export function ProjectCard({ title, category, description, image, tags }: ProjectCardProps) {
+export function ProjectCard({ title, category, description, image, videoUrl, tags }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -32,11 +33,21 @@ export function ProjectCard({ title, category, description, image, tags }: Proje
 
       {/* Image Container with Cinematic Aspect Ratio */}
       <div className="relative aspect-[21/9] overflow-hidden bg-black">
-        <ImageWithFallback
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-        />
+        {videoUrl ? (
+          <iframe
+            src={videoUrl}
+            title={title}
+            className="w-full h-full object-cover"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <ImageWithFallback
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+          />
+        )}
 
         {/* Overlay with Play Button */}
         <motion.div

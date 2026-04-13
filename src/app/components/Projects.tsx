@@ -50,6 +50,24 @@ const projects = [
     description: 'Character-driven short film with focus on narrative structure and emotional timing. Carefully crafted pacing to build tension and release.',
     image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaG9ydCUyMGZpbG0lMjBwcm9kdWN0aW9ufGVufDF8fHx8MTc0NDM4MzYwMHww&ixlib=rb-4.1.0&q=80&w=1080',
     tags: ['Narrative Editing', 'Sound Mix', 'Post-Production']
+  },
+  {
+    id: 7,
+    title: 'Fuar Dergisi - Edit 1',
+    category: 'Fuar Dergisi',
+    description: 'Fuar Dergisi için videographer olarak hazırlanmış edit. Premiere, After Effects ve DaVinci Resolve ile kurgu, renk ve tempo çalışması yapıldı.',
+    image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXVyfGVufDB8fHx8MTc0NDM4MzYwMHww&ixlib=rb-4.1.0&q=80&w=1080',
+    videoUrl: 'https://www.youtube.com/embed/ciTBoC-a4sI',
+    tags: ['Fuar Dergisi', 'Videographer', 'Premiere Pro', 'After Effects', 'DaVinci Resolve']
+  },
+  {
+    id: 8,
+    title: 'Fuar Dergisi - Edit 2',
+    category: 'Fuar Dergisi',
+    description: 'Fuar Dergisi kapsamında videographer olarak hazırlanmış ikinci edit. Premiere, After Effects ve DaVinci Resolve kullanılarak dinamik bir sunum oluşturuldu.',
+    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXVyfGVufDB8fHx8MTc0NDM4MzYwMHww&ixlib=rb-4.1.0&q=80&w=1080',
+    videoUrl: 'https://www.youtube.com/embed/aQo70brYRBw',
+    tags: ['Fuar Dergisi', 'Videographer', 'Premiere Pro', 'After Effects', 'DaVinci Resolve']
   }
 ];
 
